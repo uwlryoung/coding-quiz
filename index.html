@@ -13,6 +13,7 @@
     <header>
         <div class="header" data-state="visible">
             <a href ="hs-index.html">View High Scores</a>
+            <h2 id="score"></h2>
             <h2 id="timer">75 seconds</h2>
 
         </div>
@@ -31,19 +32,19 @@
         </div>
         <div class="box" id="question-card" data-question="1" data-state="hidden">
             <h2 id="question"></h2>
-            <div><button type="button" class="button" id="answer1" data-answer="1"></button></div>
-            <div><button type="button" class="button" id="answer2" data-answer="2"></button></div>
-            <div><button type="button" class="button" id="answer3" data-answer="3"></button></div>
-            <div><button type="button" class="button" id="answer4" data-answer="4"></button></div>
+            <div><button type="button" class="button ansButton" id="answer1" data-answer="1"></button></div>
+            <div><button type="button" class="button ansButton" id="answer2" data-answer="2"></button></div>
+            <div><button type="button" class="button ansButton" id="answer3" data-answer="3"></button></div>
+            <div><button type="button" class="button ansButton" id="answer4" data-answer="4"></button></div>
             <h3 id="corIncor"></h3>
         </div>
 
         <div class="box" id="results-card" data-state="hidden">
             <h2>All done!</h2>
-            <p>Answer based on score</p>
-            <h3>Your score is: </h3>
+            <p></p>
+            <h3 id="final-score"></h3>
             <div>
-                <form>
+                <form id="highScoresForm">
                     <div>
                       <label for="initials">Your Initials</label>
                       <input id="initials" type="text" name="text" />
@@ -53,20 +54,16 @@
                   
             </div>
         </div>
-        <div class="box" id="highScores-card" data-state="hidden">
+        <div class="box" id="highScoresCard" data-state="hidden">
             <h2>High Scores</h2>
             <table>
                 <tr>
-                    <th id="rank">Rank</th>
-                    <th id="intials">Initials</th>
-                    <th id="score">Score</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>LY</td>
-                    <td>44</td>
+                    <th>Rank</th>
+                    <th>Initials</th>
+                    <th>Score</th>
                 </tr>
             </table>
+            <ul id="highScoreList"></ul>
         </div>
     </div>
 
@@ -74,39 +71,3 @@
   </body>
 
 </html>
-
-
-
-
-        <!-- <div class="box" data-question="2" data-state="hidden">
-            <h2>This is the second question?!?!?</h2>
-            <div><button type="button" class="button" data-ans#="1" data-answer="correct">Answer 1</button></div>
-            <div><button type="button" class="button" data-ans#="2" data-answer="incorrect">Answer 2</button></div>
-            <div><button type="button" class="button" data-ans#="3" data-answer="incorrect">Answer 3</button></div>
-            <div><button type="button" class="button" data-ans#="4" data-answer="incorrect">Answer 4</button></div>
-            <h3>Correct / Incorrect Written here</h3>
-        </div>
-        <div class="box" data-question="3" data-state="hidden">
-            <h2>This is the third question?!?!?</h2>
-            <div><button type="button" class="button" data-ans#="1" data-answer="correct">Answer 1</button></div>
-            <div><button type="button" class="button" data-ans#="2" data-answer="incorrect">Answer 2</button></div>
-            <div><button type="button" class="button" data-ans#="3" data-answer="incorrect">Answer 3</button></div>
-            <div><button type="button" class="button" data-ans#="4" data-answer="incorrect">Answer 4</button></div>
-            <h3>Correct / Incorrect Written here</h3>
-        </div>
-        <div class="box" data-question="4" data-state="hidden">
-            <h2>This is the fourth question?!?!?</h2>
-            <div><button type="button" class="button" data-ans#="1" data-answer="correct">Answer 1</button></div>
-            <div><button type="button" class="button" data-ans#="2" data-answer="incorrect">Answer 2</button></div>
-            <div><button type="button" class="button" data-ans#="3" data-answer="incorrect">Answer 3</button></div>
-            <div><button type="button" class="button" data-ans#="4" data-answer="incorrect">Answer 4</button></div>
-            <h3>Correct / Incorrect Written here</h3>
-        </div>
-        <div class="box" data-question="5" data-state="hidden">
-            <h2>This is the fifth question?!?!?</h2>
-            <div><button type="button" class="button" data-ans#="1" data-answer="correct">Answer 1</button></div>
-            <div><button type="button" class="button" data-ans#="2" data-answer="incorrect">Answer 2</button></div>
-            <div><button type="button" class="button" data-ans#="3" data-answer="incorrect">Answer 3</button></div>
-            <div><button type="button" class="button" data-ans#="4" data-answer="incorrect">Answer 4</button></div>
-            <h3>Correct / Incorrect Written here</h3>
-        </div> -->
