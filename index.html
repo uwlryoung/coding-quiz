@@ -19,24 +19,65 @@
     </header>
 
     <div class="container">
-        <div class="box" id="title-card" data-question="0" data-state="hidden">
+        <div class="box" id="title-card" data-question="0" data-state="visible">
             <h1>~Coding Quiz~</h1>
             <h2>Welcome to the Coding Quiz Game!</h2>
             <p>Test your knowledge of coding. You have 75 seconds to finish the quiz.
                 However, incorrect answers will subtract 15 seconds from your timer! Click "Start Quiz!" to get started. Best of luck!
             </p>
             <div>
-                <!-- <button type="button" class="button" id="start-quiz">Start Quiz</button>  -->
+                <button type="button" class="button" id="start-quiz">Start Quiz</button> 
             </div>
         </div>
-        <div class="box" data-question="1" data-state="visible">
+        <div class="box" id="question-card" data-question="1" data-state="hidden">
             <h2 id="question"></h2>
             <div><button type="button" class="button" id="answer1" data-answer="1"></button></div>
             <div><button type="button" class="button" id="answer2" data-answer="2"></button></div>
             <div><button type="button" class="button" id="answer3" data-answer="3"></button></div>
             <div><button type="button" class="button" id="answer4" data-answer="4"></button></div>
-            <h3>Correct / Incorrect Written here</h3>
+            <h3 id="corIncor"></h3>
         </div>
+
+        <div class="box" id="results-card" data-state="hidden">
+            <h2>All done!</h2>
+            <p>Answer based on score</p>
+            <h3>Your score is: </h3>
+            <div>
+                <form>
+                    <div>
+                      <label for="initials">Your Initials</label>
+                      <input id="initials" type="text" name="text" />
+                      <input type="submit" class="button" value="Submit" />
+                    </div>
+                </form>
+                  
+            </div>
+        </div>
+        <div class="box" id="highScores-card" data-state="hidden">
+            <h2>High Scores</h2>
+            <table>
+                <tr>
+                    <th id="rank">Rank</th>
+                    <th id="intials">Initials</th>
+                    <th id="score">Score</th>
+                </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>LY</td>
+                    <td>44</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
+
+</html>
+
+
+
+
         <!-- <div class="box" data-question="2" data-state="hidden">
             <h2>This is the second question?!?!?</h2>
             <div><button type="button" class="button" data-ans#="1" data-answer="correct">Answer 1</button></div>
@@ -68,40 +109,4 @@
             <div><button type="button" class="button" data-ans#="3" data-answer="incorrect">Answer 3</button></div>
             <div><button type="button" class="button" data-ans#="4" data-answer="incorrect">Answer 4</button></div>
             <h3>Correct / Incorrect Written here</h3>
-        </div>
-        <div class="box" id="results-card" data-state="hidden">
-            <h2>All done!</h2>
-            <p>Answer based on score</p>
-            <h3>Your score is: </h3>
-            <div>
-                <form>
-                    <div>
-                      <label for="initials">Your Initials</label>
-                      <input id="initials" type="text" name="text" />
-                      <input type="submit" class="button" value="Submit" />
-                    </div>
-                </form>
-                  
-            </div>
-        </div>
-        <div class="box" id="high-scores" data-state="hidden">
-            <h2>High Scores</h2>
-            <table>
-                <tr>
-                    <th id="rank">Rank</th>
-                    <th id="intials">Initials</th>
-                    <th id="score">Score</th>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>LY</td>
-                    <td>44</td>
-                </tr>
-            </table>
         </div> -->
-    </div>
-
-    <script src="./assets/js/script.js"></script>
-  </body>
-
-</html>
