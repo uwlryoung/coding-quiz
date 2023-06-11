@@ -12,7 +12,7 @@
 
     <header>
         <div class="header" data-state="visible">
-            <a href ="hs-index.html">View High Scores</a>
+            <a href ="#" id="go-to-highscores">View High Scores</a>
             <h2 id="score"></h2>
             <h2 id="timer">75 seconds</h2>
 
@@ -52,7 +52,6 @@
                     </div>
                 </form>
             </div>
-            <!-- <div><button type="button" class="button" id="restart">Try Again?</button></div> -->
         </div>
         <div class="box" id="highScoresCard" data-state="hidden">
             <h2>High Scores</h2>
@@ -62,6 +61,8 @@
                     <th>Score</th>
                 </tr>
             </table>
+            <div><button type="button" class="button" id="restart">Return to Start</button></div>
+            <div><button type="button" class="button" id="clearScores">Clear High Scores</button></div>
         </div>
     </div>
 

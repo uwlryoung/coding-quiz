@@ -18,6 +18,9 @@ var scoreCurrent = document.querySelector("#score");
 var highScoreList = document.querySelector("#highScoreList");
 var initialsEl = document.querySelector("#initials");
 var resultMessage = document.querySelector("#message");
+var highScoreLink = document.querySelector("#go-to-highscores");
+var restartButton = document.querySelector("#restart");
+var clearScores = document.querySelector("#clearScores");
 
 //Variables needed to keep track of data
 var timeLeft = 75;
@@ -53,6 +56,45 @@ var questionBank = [{
     answer: "Yesterday"
 }
 ];
+
+restartButton.addEventListener("click", function(){
+    location.reload();
+});
+
+clearScores.addEventListener("click", function(){
+    var confirm = window.confirm("Are you sure you want to clear the scores?");
+
+    if (confirm === true){
+        localStorage.clear();
+        location.reload();
+    }      
+});
+
+//Link to go to the high scores board right away
+highScoreLink.addEventListener("click", function(){
+    titleCard.setAttribute("data-state", "hidden");
+    questionCard.setAttribute("data-state", "hidden");
+    resultsCard.setAttribute("data-state", "hidden");
+    highScoresCard.setAttribute("data-state", "visible");
+
+    players = JSON.parse(localStorage.getItem("players"));
+
+    
+    for (i = 0; i < players.length; i++) {
+        var tr = document.createElement("tr");
+        var tdName = document.createElement("td");
+        var tdScore = document.createElement("td");
+
+        tdName.textContent = players[i].initials;
+        tdScore.textContent = players[i].points;
+
+        highScoreList.appendChild(tr);
+        tr.appendChild(tdName);
+        tr.appendChild(tdScore);
+    }
+
+    sortTable();
+}, { once: true });
 
 highScoresForm.addEventListener("submit", submitScore);
 
@@ -221,10 +263,6 @@ function init() {
 function submitScore(event){
     event.preventDefault();
 
-    highScoresCard.setAttribute("data-state", "visible");
-    resultsCard.setAttribute("data-state", "hidden");
-
-
     var player = {
         initials: initialsEl.value,
         points: scoreTotal
@@ -238,7 +276,6 @@ function submitScore(event){
 
     
     for (i = 0; i < players.length; i++) {
-        console.log(i);
         var tr = document.createElement("tr");
         var tdName = document.createElement("td");
         var tdScore = document.createElement("td");
@@ -250,6 +287,11 @@ function submitScore(event){
         tr.appendChild(tdName);
         tr.appendChild(tdScore);
     }
+
+    sortTable();
+
+    highScoresCard.setAttribute("data-state", "visible");
+    resultsCard.setAttribute("data-state", "hidden");
 }
 
 
@@ -278,13 +320,31 @@ function results() {
     }
 };
 
+//Sorts the High Scores Table from high to low
+function sortTable() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("highScoreList");
+    switching = true;
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[1];
+        y = rows[i + 1].getElementsByTagName("TD")[1];
 
+        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+      }
+    }
+  }
 
-//Results function that hides the quiz, and shows the score
-
-//click event for the link to the high scores
-
-//High Score Function that hides all other parts of the HTML, and makes the high score visible
 
 
 
