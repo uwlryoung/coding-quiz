@@ -7,7 +7,6 @@ var resultsCard = document.querySelector("#results-card");
 var highScoresCard = document.querySelector("#highScoresCard");
 var highScoresForm = document.querySelector("#highScoresForm");
 var question = document.querySelector("#question");
-var ansButton = document.querySelector(".ansButton");
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
 var answer3 = document.querySelector("#answer3");
@@ -17,14 +16,25 @@ var corIncor = document.querySelector("#corIncor");
 var finalScore = document.querySelector("#final-score");
 var scoreCurrent = document.querySelector("#score");
 var highScoreList = document.querySelector("#highScoreList");
+var initialsEl = document.querySelector("#initials");
 
 //Variables needed to keep track of data
-var score = localStorage.getItem("score");
-scoreCurrent.textContent = score + " points";
+var playerList = localStorage.getItem("players");
 var timeLeft = 75;
-score = 0;
+scoreTotal = 0;
+scoreCurrent.textContent = scoreTotal + " points";
 
-//An array of objects, each object being a different question and answer
+var previousPlayers = [];
+
+var players = [];
+
+// var player = {
+//     initials: initialsEl,
+//     score: score,
+//     rank: players.length
+// };
+
+//Questions Bank
 var questionBank = [{
     question: "なに?",
     answers: ["はい","いいえ","かもしれない","もう一同"],
@@ -52,13 +62,9 @@ var questionBank = [{
 }
 ];
 
-// var playerStats = {
-//     initials: initials.value,
-//     score: finalScore
-// }
+highScoresForm.addEventListener("submit", submitScore);
 
-var players = [];
-
+//Start the Quiz
 startQuiz.addEventListener("click", function(event){
     event.preventDefault();
     init();
@@ -67,7 +73,7 @@ startQuiz.addEventListener("click", function(event){
     titleCard.setAttribute("data-state", "hidden");
     questionCard.setAttribute("data-state", "visible");
 
-    corIncorClear();
+    
 
     function quesAnsText () {
         if (q < questionBank.length) {
@@ -82,6 +88,8 @@ startQuiz.addEventListener("click", function(event){
         }
     };
 
+
+    //Answer Button Event Listeners (moves to the next question or ends the quiz)
     answer1.addEventListener("click", function(event){
         event.preventDefault();
         if (q < questionBank.length) {
@@ -89,20 +97,19 @@ startQuiz.addEventListener("click", function(event){
                 corIncor.textContent = "Correct!";
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score + 10;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal + 10;
+                scoreCurrent.textContent = scoreTotal + " points";
                 quesAnsText();
             } else {
                 corIncor.textContent = "Incorrect!"
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score - 5;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal - 5;
+                scoreCurrent.textContent = scoreTotal + " points";
                 timeLeft = timeLeft - 15;
                 quesAnsText();
             } 
         } else {
-            console.log("yeeepers");
             setTimeout(results,1000);
             return;
         }
@@ -115,15 +122,15 @@ startQuiz.addEventListener("click", function(event){
                 corIncor.textContent = "Correct!";
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score + 10;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal + 10;
+                scoreCurrent.textContent = scoreTotal + " points";
                 quesAnsText();
             } else {
                 corIncor.textContent = "Incorrect!"
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score - 5;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal - 5;
+                scoreCurrent.textContent = scoreTotal + " points";
                 timeLeft = timeLeft - 15;
                 quesAnsText();
             } 
@@ -141,15 +148,15 @@ startQuiz.addEventListener("click", function(event){
                 corIncor.textContent = "Correct!";
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score + 10;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal + 10;
+                scoreCurrent.textContent = scoreTotal + " points";
                 quesAnsText();
             } else {
                 corIncor.textContent = "Incorrect!"
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score - 5;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal - 5;
+                scoreCurrent.textContent = scoreTotal + " points";
                 timeLeft = timeLeft - 15;
                 quesAnsText();
             } 
@@ -167,15 +174,15 @@ startQuiz.addEventListener("click", function(event){
                 corIncor.textContent = "Correct!";
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score + 10;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal + 10;
+                scoreCurrent.textContent = scoreTotal + " points";
                 quesAnsText();
             } else {
                 corIncor.textContent = "Incorrect!"
                 setTimeout(corIncorClear,1500);
                 q++;
-                score = score - 5;
-                scoreCurrent.textContent = score + " points";
+                scoreTotal = scoreTotal - 5;
+                scoreCurrent.textContent = scoreTotal + " points";
                 timeLeft = timeLeft - 15;
                 quesAnsText();
             } 
@@ -187,6 +194,7 @@ startQuiz.addEventListener("click", function(event){
     
     });
 
+    corIncorClear();
     quesAnsText();
     countdown();
 
@@ -194,7 +202,6 @@ startQuiz.addEventListener("click", function(event){
 
 //Timercountdown (Starting from 75 seconds)
 function countdown() {
-
     var timeInterval = setInterval(function () {
       if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds';
@@ -211,29 +218,68 @@ function countdown() {
     }, 1000);
   }
 
+//Initializes the quiz, resets the score to 0, recalls the old player data
 function init() {
-    score = 0;
-    scoreCurrent.textContent = score + " points";
+    scoreTotal = 0;
+    scoreCurrent.textContent = scoreTotal + " points";
+    if (previousPlayers !== null){
+        previousPlayers = JSON.parse(localStorage.getItem(previousPlayers));
+        players.push(previousPlayers);
+        // players = previousPlayers;
+        console.log("NOT NulL!!!!")
+    } else {
+        return;
+    }
 };
 
 function submitScore(event){
     event.preventDefault();
-    console.log("submit score's logged?")
-    for (var i = 0; i < players.length; i++) {
-        var player = {
-            initials: initials.value,
-            score: score
-        }
+
+    
+    var tr = document.createElement("tr");
+    var tdRank = document.createElement("td");
+    var tdName = document.createElement("td");
+    var tdScore = document.createElement("td");
+
+    var player = {
+        initials: initialsEl,
+        points: scoreTotal,
+        rank: players.length
+    };
+
+    // players.push(player);
+    // localStorage.setItem("previousPlayers", JSON.stringify(players));
+
+    // var leaderBoardList = JSON.parse(localStorage.getItem(previousPlayers));
+    // console.log(leaderBoardList);
+    
+    for (i = 0; i < players.length; i++) {
+
+        // storePlayer();
+
+        localStorage.setItem("player", JSON.stringify(players));
+        localStorage.setItem("previousPlayers", JSON.stringify(previousPlayers));
         
-        player = players[i];
+        tdRank.textContent = player.rank;
+        tdName.textContent = player.initials.value;
+        tdScore.textContent = player.points;
 
-        var li = document.createElement("li");
-        li.textContent = i +". " + player.initials + "  " + player.score;
-        li.setAttribute("data-index", i);
-
-        highScoreList.appendChild(li);
+        highScoreList.appendChild(tr);
+        tr.appendChild(tdRank);
+        tr.appendChild(tdName);
+        tr.appendChild(tdScore);
     }
 }
+
+// function saveLastPlayer() {
+//     var player = {
+//         initials: initialsEl,
+//         points: scoreTotal,
+//         rank: players.length
+//     };
+//     localStorage.setItem("previousPlayers", JSON.stringify(player));
+//     return player;
+//   }
 
 function corIncorClear(){
     corIncor.textContent ="";
@@ -246,11 +292,17 @@ function results() {
     scoreTime = timeLeft;
     timeLeft = 0;
     timerEl.textContent = '';
-    finalScore.textContent = "Your score: " + score;
-    localStorage.setItem("score", score);
+    finalScore.textContent = "Your score: " + scoreTotal;
 };
 
-highScoresForm.addEventListener("submit", submitScore);
+// function storePlayer() {
+//     localStorage.setItem("player", JSON.stringify(players));
+//     localStorage.setItem("previousPlayers", JSON.stringify(previousPlayers));
+//   }
+
+// function getPlayer() {
+//     previousPlayers = JSON.parse(localStorage.getItem(previousPlayers));
+//   }
 
 
 
@@ -296,4 +348,4 @@ highScoresForm.addEventListener("submit", submitScore);
     //     answer4.textContent = question2.answers[ans[3]];
 
 
-    // }
+    //}
