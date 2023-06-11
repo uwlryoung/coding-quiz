@@ -17,22 +17,14 @@ var finalScore = document.querySelector("#final-score");
 var scoreCurrent = document.querySelector("#score");
 var highScoreList = document.querySelector("#highScoreList");
 var initialsEl = document.querySelector("#initials");
+var resultMessage = document.querySelector("#message");
 
 //Variables needed to keep track of data
-var playerList = localStorage.getItem("players");
 var timeLeft = 75;
 scoreTotal = 0;
 scoreCurrent.textContent = scoreTotal + " points";
 
-var previousPlayers = [];
-
 var players = [];
-
-// var player = {
-//     initials: initialsEl,
-//     score: score,
-//     rank: players.length
-// };
 
 //Questions Bank
 var questionBank = [{
@@ -73,8 +65,6 @@ startQuiz.addEventListener("click", function(event){
     titleCard.setAttribute("data-state", "hidden");
     questionCard.setAttribute("data-state", "visible");
 
-    
-
     function quesAnsText () {
         if (q < questionBank.length) {
             question.textContent = questionBank[q].question;
@@ -87,7 +77,6 @@ startQuiz.addEventListener("click", function(event){
             return;
         }
     };
-
 
     //Answer Button Event Listeners (moves to the next question or ends the quiz)
     answer1.addEventListener("click", function(event){
@@ -222,64 +211,47 @@ function countdown() {
 function init() {
     scoreTotal = 0;
     scoreCurrent.textContent = scoreTotal + " points";
+    previousPlayers = JSON.parse(localStorage.getItem("players"));
     if (previousPlayers !== null){
-        previousPlayers = JSON.parse(localStorage.getItem(previousPlayers));
-        players.push(previousPlayers);
-        // players = previousPlayers;
-        console.log("NOT NulL!!!!")
-    } else {
-        return;
+        players = previousPlayers;
     }
+
 };
 
 function submitScore(event){
     event.preventDefault();
 
-    
-    var tr = document.createElement("tr");
-    var tdRank = document.createElement("td");
-    var tdName = document.createElement("td");
-    var tdScore = document.createElement("td");
+    highScoresCard.setAttribute("data-state", "visible");
+    resultsCard.setAttribute("data-state", "hidden");
+
 
     var player = {
-        initials: initialsEl,
-        points: scoreTotal,
-        rank: players.length
+        initials: initialsEl.value,
+        points: scoreTotal
     };
 
-    // players.push(player);
-    // localStorage.setItem("previousPlayers", JSON.stringify(players));
+    players.push(player);
 
-    // var leaderBoardList = JSON.parse(localStorage.getItem(previousPlayers));
-    // console.log(leaderBoardList);
+    localStorage.setItem("players", JSON.stringify(players));
+
+    players = JSON.parse(localStorage.getItem("players"));
+
     
     for (i = 0; i < players.length; i++) {
+        console.log(i);
+        var tr = document.createElement("tr");
+        var tdName = document.createElement("td");
+        var tdScore = document.createElement("td");
 
-        // storePlayer();
-
-        localStorage.setItem("player", JSON.stringify(players));
-        localStorage.setItem("previousPlayers", JSON.stringify(previousPlayers));
-        
-        tdRank.textContent = player.rank;
-        tdName.textContent = player.initials.value;
-        tdScore.textContent = player.points;
+        tdName.textContent = players[i].initials;
+        tdScore.textContent = players[i].points;
 
         highScoreList.appendChild(tr);
-        tr.appendChild(tdRank);
         tr.appendChild(tdName);
         tr.appendChild(tdScore);
     }
 }
 
-// function saveLastPlayer() {
-//     var player = {
-//         initials: initialsEl,
-//         points: scoreTotal,
-//         rank: players.length
-//     };
-//     localStorage.setItem("previousPlayers", JSON.stringify(player));
-//     return player;
-//   }
 
 function corIncorClear(){
     corIncor.textContent ="";
@@ -288,23 +260,23 @@ function corIncorClear(){
 function results() {
     questionCard.setAttribute("data-state", "hidden");
     resultsCard.setAttribute("data-state", "visible");
-    highScoresCard.setAttribute("data-state", "visible");
     scoreTime = timeLeft;
     timeLeft = 0;
     timerEl.textContent = '';
     finalScore.textContent = "Your score: " + scoreTotal;
+
+    if (scoreTotal < 10) {
+        resultMessage.textContent = "Keep studying and try again!"
+    } else if (scoreTotal >= 10 && scoreTotal < 20){
+        resultMessage.textContent = "You're on your way, don't give up now!"
+    } else if (scoreTotal >= 20 && scoreTotal < 30) {
+        resultMessage.textContent = "Ok, you know your stuff, but still have room for improvement!"
+    } else if (scoreTotal >=30){
+        resultMessage.textContent = "You're a coding master!"
+    } else {
+        resultMessage.textContent = "Somehow, you're so good you broke the quiz!"
+    }
 };
-
-// function storePlayer() {
-//     localStorage.setItem("player", JSON.stringify(players));
-//     localStorage.setItem("previousPlayers", JSON.stringify(previousPlayers));
-//   }
-
-// function getPlayer() {
-//     previousPlayers = JSON.parse(localStorage.getItem(previousPlayers));
-//   }
-
-
 
 
 
