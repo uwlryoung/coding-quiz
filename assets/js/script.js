@@ -35,7 +35,7 @@ var questionBank = [{
 },
 {
     question: "What is the purpose of the `alt` attribute for images?",
-    answers: ["To make it easier to style the image with CSS","To make the image load faster","To provide context for the images in the cases where they are not observable, either due to an accessibility challenge or a broken link.","To prevent search engines from indexing the image"],
+    answers: ["To make it easier to style the image with CSS","To make the image load faster","To provide context for the images in the cases where they are not observable, either due to an accessibility challenge or a broken link","To prevent search engines from indexing the image"],
     answer: "To provide context for the images in the cases where they are not observable, either due to an accessibility challenge or a broken link"
 },
 {
@@ -184,13 +184,16 @@ startQuiz.addEventListener("click", function(event){
     titleCard.setAttribute("data-state", "hidden");
     questionCard.setAttribute("data-state", "visible");
 
+
+    //This function adds the answer choices to the buttons, and makes the order of the buttons random. 
     function quesAnsText () {
         if (q < questionBank.length) {
+            var a = randomOrder();
             question.textContent = questionBank[q].question;
-            answer1.textContent = questionBank[q].answers[0];
-            answer2.textContent = questionBank[q].answers[1];
-            answer3.textContent = questionBank[q].answers[2];
-            answer4.textContent = questionBank[q].answers[3];
+            answer1.textContent = questionBank[q].answers[a[0]];
+            answer2.textContent = questionBank[q].answers[a[1]];
+            answer3.textContent = questionBank[q].answers[a[2]];
+            answer4.textContent = questionBank[q].answers[a[3]];
         } else {
             setTimeout(results,1000);
             return;
@@ -225,7 +228,6 @@ startQuiz.addEventListener("click", function(event){
             setTimeout(results,1000);
             return;
         }
-    
     });
 
     answer2.addEventListener("click", function(){
@@ -255,7 +257,6 @@ startQuiz.addEventListener("click", function(event){
             setTimeout(results,1000);
             return;
         }
-    
     });
 
     answer3.addEventListener("click", function(){
@@ -285,7 +286,6 @@ startQuiz.addEventListener("click", function(event){
             setTimeout(results,1000);
             return;
         }
-    
     });
 
     answer4.addEventListener("click", function(){
@@ -315,7 +315,6 @@ startQuiz.addEventListener("click", function(event){
             setTimeout(results,1000);
             return;
         }
-    
     });
 
     corIncorClear();
@@ -368,7 +367,6 @@ function submitScore(event){
 
     players = JSON.parse(localStorage.getItem("players"));
 
-    
     for (i = 0; i < players.length; i++) {
         var tr = document.createElement("tr");
         var tdName = document.createElement("td");
@@ -440,40 +438,25 @@ function sortTable() {
     }
   }
 
+  //Function to randomize the order of the buttons on the quiz so players can't just memorize the quesion order
+  function randomOrder(){
+    var base = [0,1,2,3];
+    var newArray = [];
 
+    var a = Math.floor(Math.random() * base.length);
+    newArray.push(base[a]);
+    var base1 = base.splice(a,1);
 
+    var b = Math.floor(Math.random() * base1.length);
+    newArray.push(base[b]);
+    var base2 = base.splice(b,1);
 
-// This function will randomize the order the buttons. Try to add later. 
+    var c = Math.floor(Math.random() * base2.length);
+    newArray.push(base[c]);
+    var base3 = base.splice(c,1);
 
-    // function generateQSet() {  
-    //     function randomOrder(){
-    //         var base = [0,1,2,3];
-    //         var newArray = [];
-    
-    //         var a = Math.floor(Math.random() * base.length);
-    //         newArray.push(base[a]);
-    //         var base1 = base.splice(a,1);
-    
-    //         var b = Math.floor(Math.random() * base1.length);
-    //         newArray.push(base[b]);
-    //         var base2 = base.splice(b,1);
-    
-    //         var c = Math.floor(Math.random() * base2.length);
-    //         newArray.push(base[c]);
-    //         var base3 = base.splice(c,1);
-    
-    //         var d = Math.floor(Math.random() * base3.length);
-    //         newArray.push(base[d]);
-    
-    //         return newArray;
-    //     }
-    //     var ans = randomOrder();
+    var d = Math.floor(Math.random() * base3.length);
+    newArray.push(base[d]);
 
-    //     question.textContent = question2.question;
-    //     answer1.textContent = question2.answers[ans[0]];
-    //     answer2.textContent = question2.answers[ans[1]];
-    //     answer3.textContent = question2.answers[ans[2]];
-    //     answer4.textContent = question2.answers[ans[3]];
-
-
-    //}
+    return newArray;
+  }

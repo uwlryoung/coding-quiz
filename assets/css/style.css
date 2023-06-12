@@ -49,6 +49,7 @@ body {
     text-align: center;
 }
 
+/* Styles all the buttons in the quiz */
 .button {
     background-color: var(--light-blue);
     color: var(--off-white);
@@ -63,6 +64,7 @@ body {
     text-align: left;
 }
 
+/* Specifically styles buttons that have functionality (start, restart, etc) to have text centered */
 form .button,
 #start-quiz,
 #restart,
@@ -78,6 +80,7 @@ form .button,
     background-color: var(--light-blue);
 }
 
+/* Boxes (or cards) are each main section of the quiz (title-card, questions-card, results-card, highscore-card) */
 .box {
     display: flex;
     flex-direction: column;
@@ -99,10 +102,13 @@ form .button,
     border-top: 5px solid var(--dark-blue);
 }
 
+/* The most important style, changing the data-state of the cards to display none. 
+This allows it so that only one card (title, question, results, highscore) is shown at one time only.  */
 .box[data-state="hidden"] {
     display: none;
 }
 
+/* Form (submitting initials) styles here */
 form label {
     font-size: 30px;
 }
@@ -112,6 +118,7 @@ form label {
     border-radius: 3px;
 }
 
+/* highscore-card table contents style here */
 table {
     text-align: center;
     font-size: 20px;
