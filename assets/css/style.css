@@ -60,6 +60,14 @@ body {
     border-radius: 15px;
     min-width: 200px;
     min-height: 45px;
+    text-align: left;
+}
+
+form .button,
+#start-quiz,
+#restart,
+#clearScores {
+    text-align: center;
 }
 
 .button:hover {
