@@ -336,6 +336,7 @@ function countdown() {
         timerEl.textContent = '';
         clearInterval(timeInterval);
         questionCard.setAttribute("data-state", "hidden");
+        results();
         resultsCard.setAttribute("data-state", "visible");
       }
     }, 1000);

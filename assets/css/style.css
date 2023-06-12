@@ -62,6 +62,7 @@ body {
     min-width: 200px;
     min-height: 45px;
     text-align: left;
+    overflow-wrap: break-word;
 }
 
 /* Specifically styles buttons that have functionality (start, restart, etc) to have text centered */
@@ -70,10 +71,6 @@ form .button,
 #restart,
 #clearScores {
     text-align: center;
-}
-
-.button:hover {
-    background-color: var(--dark-blue);
 }
 
 .button:active {
@@ -132,4 +129,13 @@ li {
 
 th, td {
     padding: 5px;
+}
+
+/* Hover is not in effect for small devices 
+(if it is in effect, the clicked answer for question 1 will highlight the next question's choice in that same location 
+(e.g., Question 1 Choice A is clicked. This makes Question 2 Choice A highlighted.)  */
+@media screen and (min-width: 500px) {
+    .button:hover {
+        background-color: var(--dark-blue);
+    }
 }
