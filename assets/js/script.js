@@ -46,7 +46,7 @@ var questionBank = [{
 {
     question: "Which of the following is not a component of the box model?",
     answers: ["The display property","The padding property","The border property","The content"],
-    answer: "The content"
+    answer: "The display property"
 },
 {
     question: "Which of the following statements are NOT true?",
@@ -61,12 +61,12 @@ var questionBank = [{
 {
     question: "What is one advantage of Responsive Design for a developer?",
     answers: ["Faster page loading time","Faster development","More social sharing","Improved SEO"],
-    answer: "Improved SEO"
+    answer: "Faster development"
 },
 {
     question: "When using flexbox, which property needs to be adjusted in order to add space between items?",
     answers: ["justify-content","flex-flow","flex-flow","space-between"],
-    answer: "space-between"
+    answer: "justify-content"
 },
 {
     question: "What is a CSS reset?",
